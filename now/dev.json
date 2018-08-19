@@ -1,0 +1,11 @@
+{
+  "name": "dhruvio-dev",
+  "type": "docker",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "alias": [
+    "dhruvio-dev.now.sh",
+    "dev.dhruv.io"
+  ]
+}

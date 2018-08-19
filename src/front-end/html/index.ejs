@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>Dhruv Dang</title>
+    <% if (inlineCss) { %>
+      <link href="app.css?__inline=true" rel="stylesheet" type="text/css" />
+    <% } else { %>
+      <link href="/app.css" rel="stylesheet" type="text/css" />
+    <% } %>
+    <% if (inlineJs) { %>
+      <script src="app.js?__inline=true"></script>
+    <% } else { %>
+      <script src="/app.js"></script>
+    <% } %>
+  </head>
+  <body dir="ltr" lang="en">
+    <script>
+      (function() {
+
+        //embed elm application
+        var node = document.body;
+        var app = Elm.Main.embed(node);
+
+        /*
+        function pageView() {
+          window.ga('send', {
+            hitType: 'pageview',
+            page: window.location.pathname
+          });
+        }
+
+        app.ports.pageView.subscribe(pageView);
+
+        //subscribe to window scrolling
+        var getScroll = function () { return window.pageYOffset || document.body.scrollTop; };
+        var scroll = getScroll();
+        window.onscroll = function () {
+          var newScroll = getScroll();
+          app.ports.windowScroll.send([scroll, newScroll]);
+          scroll = newScroll;
+        };
+
+        //command for twitter share
+        app.ports.twitterShare.subscribe(function () {
+          var width  = 575,
+              height = 400,
+              left   = (window.innerWidth  - width)  / 2,
+              top    = (window.innerHeight - height) / 2,
+              opts   = 'status=1' +
+                       ',width='  + width  +
+                       ',height=' + height +
+                       ',top='    + top    +
+                       ',left='   + left;
+          
+          window.open("https://twitter.com/share", 'twitter', opts);
+        });
+
+        //command to scroll window along Y axis to fixed value
+        app.ports.windowScrollYTo.subscribe(function (y) {
+          window.scrollTo(0, y);
+        });
+
+        //command to scroll window along Y axis by diff value
+        app.ports.windowScrollYBy.subscribe(function (diffY) {
+          window.scrollTo(0, window.scrollY + diffY);
+        });
+
+        //command to set page metadata
+        app.ports.setPageMetaData.subscribe(function (data) {
+          removeAllMeta();
+          //constants
+          addMeta("name", "twitter:card", "summary");
+          //title
+          document.title = data.title;
+          addMeta("name", "twitter:card", "summary");
+          addMeta("name", "twitter:title", data.title);
+          addMeta("property", "og:title", data.title);
+          //description
+          addMeta("name", "description", data.description);
+          addMeta("name", "twitter:description", data.description);
+          addMeta("property", "og:description", data.description);
+          //image
+          addMeta("name", "twitter:image", data.image);
+          addMeta("property", "og:image", data.image);
+          //url
+          addMeta("name", "twitter:url", window.location.href);
+          addMeta("property", "og:url", window.location.href);
+        });
+
+        function addMeta(nameAttr, nameValue, contentValue) {
+          var meta = document.createElement("meta");
+          meta.setAttribute(nameAttr, nameValue);
+          meta.setAttribute("content", contentValue);
+          document.head.appendChild(meta);
+        }
+
+        function removeAllMeta() {
+          removeEl('meta[name="twitter:card"]');
+          removeEl('meta[name="description"]');
+          //removeEl('meta[name="keywords"]');
+          removeEl('meta[name="twitter:title"]');
+          removeEl('meta[name="twitter:description"]');
+          removeEl('meta[name="twitter:image"]');
+          removeEl('meta[name="twitter:url"]');
+          removeEl('meta[property="og:title"]');
+          removeEl('meta[property="og:description"]');
+          removeEl('meta[property="og:image"]');
+          removeEl('meta[property="og:url"]');
+        }
+        
+        function removeEl(selector) {
+          var el = document.querySelector(selector);
+          if (el) el.remove();
+        }
+        */
+      })();
+    </script>
+  </body>
+</html>

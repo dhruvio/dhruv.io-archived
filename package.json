@@ -1,0 +1,68 @@
+{
+  "name": "dhruv.io",
+  "version": "1.0.0",
+  "description": "Dhruv Dang's personal website.",
+  "main": "src/back-end/index.js",
+  "scripts": {
+    "start": "node src/back-end/index.js",
+    "prepare-deploy": "npm install && elm package install",
+    "build-dev": "npx grunt dev",
+    "build-prod": "npx grunt prod",
+    "server-dev": "NODE_ENV=development npm start",
+    "server-prod": "NODE_ENV=production npm start",
+    "build-now-image": "docker build --tag dhruvio/now ./now",
+    "build-test-image": "npm run build-prod && docker build --tag dhruvio/test .",
+    "now": "docker run --rm -it -v \"$(pwd):/data\" -e \"NOW_TOKEN=$NOW_TOKEN\" dhruvio/now now",
+    "now-team": "docker run --rm -it -v \"$(pwd):/data\" dhruvio/now now --token $NOW_TOKEN -T dhruvio",
+    "now-rm": "npm run now-team rm",
+    "now-rm-safe": "npm run now-rm -- --safe dhruvio-dev",
+    "now-rm-safe-all": "npm run now-rm-safe dhruvio-prod",
+    "now-rm-unsafe": "npm run now-rm dhruvio-dev dhruvio-prod",
+    "now-secret": "npm run now-team -- secret ",
+    "now-scale": "npm run now-team -- scale ",
+    "now-alias": "npm run now-team -- alias ",
+    "now-alias-dev": "npm run now-team -- alias --local-config=./now/dev.json",
+    "now-alias-prod": "npm run now-team -- alias --local-config=./now/prod.json",
+    "now-deploy-dev": "npm run prepare-deploy && npm run build-prod && npm run now-team -- deploy  --local-config=./now/dev.json",
+    "now-deploy-dev-dirty": "npm run now-team -- deploy --local-config=./now/dev.json",
+    "now-deploy-prod": "npm run prepare-deploy && npm run build-prod && npm run now-team -- deploy --local-config=./now/prod.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dhruvio/dhruv.io.git"
+  },
+  "author": {
+    "name": "Dhruv Dang",
+    "email": "hi@dhruv.io"
+  },
+  "license": "UNLICENSED",
+  "dependencies": {
+    "basic-auth-connect": "^1.0.0",
+    "express": "^4.16.2",
+    "global": "^4.3.2",
+    "lodash": "^4.17.4",
+    "puppeteer": "^1.3.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.4",
+    "babel-preset-env": "^1.6.0",
+    "babelify": "^7.3.0",
+    "cssnano": "^3.10.0",
+    "grunt": "^1.0.1",
+    "grunt-cli": "^1.2.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-htmlmin": "^2.4.0",
+    "grunt-contrib-uglify": "^3.1.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-elm": "dhruvio/grunt-elm#2cd6fdee383a0c351091a059a696365bb0fab5df",
+    "grunt-http-server": "^2.0.0",
+    "grunt-postcss": "^0.9.0",
+    "grunt-sass": "^2.0.0",
+    "grunt-string-replace": "^1.3.1",
+    "load-grunt-tasks": "^3.5.2",
+    "grunt-ejs": "^0.3.0",
+    "grunt-inline": "^0.3.6",
+    "require-dir": "^0.3.2"
+  }
+}
