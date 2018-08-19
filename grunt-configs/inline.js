@@ -1,8 +1,7 @@
 module.exports = {
   all: {
     src: [
-      gruntConfig.out.html.index,
-      gruntConfig.out.html.notFound
+      `${gruntConfig.out.html}/{index,404}.html`
     ]
   }
 };

@@ -63,10 +63,10 @@ const sendCrawlerResponse = async (req, res) => {
      .send(await renderUrl(url));
 };
 
-const send404 = (404File, opts, req, res) => {
+const send404 = (file, opts, req, res) => {
   req.log.debug("send 404");
   res.status(404)
-     .sendFile(404File, opts);
+     .sendFile(file, opts);
 };
 
 app.use((req, res, next) => {

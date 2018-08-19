@@ -12,7 +12,7 @@ module.exports = {
     ],
     tasks: [
       "build",
-      "ejs:devIndex",
+      "ejs:dev",
       "elm:dev",
       "inline:all"
     ]

@@ -1,6 +1,6 @@
 module.exports = [
   "build",
-  "ejs:prodIndex",
+  "ejs:prod",
   "elm:prod",
   "postcss:min",
   "uglify:prod",

@@ -1,6 +1,6 @@
 //set up global constants for all grunt tasks
-const src = "./src/front-end";
-const build = "./build";
+const src = "src/front-end";
+const build = "build";
 global.gruntConfig = {
   dir: {
     src,
@@ -15,7 +15,7 @@ global.gruntConfig = {
   out: {
     css: `${build}/app.css`,
     js: `${build}/app.js`,
-    html: build
+    html: `${build}/`
   }
 };
 

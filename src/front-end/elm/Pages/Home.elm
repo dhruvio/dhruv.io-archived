@@ -1,14 +1,16 @@
 --------------------------------------------------
 
 
-module Pages.Home (Model, Msg, page) where
+module Pages.Home exposing (Model, Msg, page)
 
 
 --------------------------------------------------
 
 
-import Types as T
 import Html as H
+
+import Types as T
+import View as V
 
 
 --------------------------------------------------
@@ -28,7 +30,7 @@ type Msg
 --------------------------------------------------
 
 
-page : T.Page Model Msg
+page : T.Page Model Msg T.GlobalMsg
 page =
   { init = init
   , update = update
@@ -40,7 +42,7 @@ page =
 --------------------------------------------------
 
 
-init : T.Init Model Msg
+init : T.Init Model Msg T.GlobalMsg
 init =
   ( { home = "Home"
     , ready = True
@@ -55,7 +57,7 @@ init =
 --------------------------------------------------
 
 
-update : T.Update Model Msg
+update : T.Update Model Msg T.GlobalMsg
 update msg model =
   (model, Cmd.none)
 
@@ -63,16 +65,20 @@ update msg model =
 --------------------------------------------------
 
 
-view : T.View Model Msg
+view : T.View Model Msg T.GlobalMsg
 view _ =
-  H.text "Home view"
+  H.div
+    []
+    [ H.text "Home view"
+    , V.link (T.R_Post "123") [] [ H.text "Go to post" ]
+    ]
 
 
 --------------------------------------------------
 
 
-subscriptions : T.Subscriptions Model Msg
-subscriptions =
+subscriptions : T.Subscriptions Model Msg T.GlobalMsg
+subscriptions _ =
   Sub.none
 
 

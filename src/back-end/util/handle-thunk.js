@@ -3,9 +3,7 @@
 const _ = require("lodash");
 
 module.exports = (thunk, req, res, next) => {
-  Promise
-    .resolve(req.thunk)
-    .then(thunk => thunk(req, res, next))
+  thunk(req, res, next)
     .then(data => data && res.status(200).send(data))
     .catch(errorMessage => {
       req.log.error(`request failed`);

@@ -1,7 +1,7 @@
 --------------------------------------------------
 
 
-module Types (..) where
+module Types exposing (..)
 
 
 --------------------------------------------------
@@ -11,74 +11,12 @@ import Html as H exposing (Html)
 import UrlParser as UP exposing ((</>))
 import Navigation as N
 
-import Pages.Home as PHome
-import Pages.Post as PPost
-
 
 --------------------------------------------------
 
 
-type alias RootModel =
-  { initialized : Bool
-  , activePage : Maybe (PageState RootMsg)
-  , incomingPage : Maybe (PageState RootMsg)
-  }
-
-
-type RootMsg
-  = RM_StartTransition Route
-  | RM_CompleteTransition
-  | RM_UpdateActivePage PageMsg
-  | RM_UpdateIncomingPage PageMsg
-
-
---------------------------------------------------
-
-
-type alias Init model msg =
-  (PageModel model, Cmd msg)
-
-
-type alias Update model msg =
-  msg -> PageModel model -> (PageModel model, Cmd msg)
-
-
-type alias View model msg =
-  PageModel model -> H.Html msg
-
-
-type alias Subscriptions model msg =
-  PageModel model -> Sub msg
-
-
-type alias Page model msg =
-  { init : Init model msg
-  , update : Update model msg
-  , view : View model msg
-  , subscriptions : Subscriptions model msg
-  }
-
-
---------------------------------------------------
-
-
-type alias PageModel a =
-  { a
-  | ready : Bool
-  , layoutClass : LayoutClass
-  , seoTitle : String
-  , seoDescription : Description
-  }
-
-
-isPageModelReady : T.PageModel a -> Bool
-isPageModelReady {ready} =
-  ready
-
-
-pageLayoutClassString : T.PageModel a -> String
-pageLayoutClassString {layoutClass} =
-  layoutClassToString layoutClass
+type GlobalMsg
+  = GM_Navigate Route
 
 
 --------------------------------------------------
@@ -120,168 +58,82 @@ locationToRoute location =
       R_Home
 
 
-routeToPage : Route -> Page model msg
-routeToPage route =
+routeToString : Route -> String
+routeToString route =
   case route of
     R_Home ->
-      PHome.page
+      "/"
 
-    R_Post id_ ->
-      PPost.page id_
+    R_Post id ->
+      "/posts/" ++ id
 
 
 --------------------------------------------------
 
 
-type alias MapMsg childMsg parentMsg =
-  childMsg -> parentMsg
+type Either a b
+  = Left a
+  | Right b
 
 
-type PageState rootMsg
-  = PS_Home (Page PHome.Model PHome.Msg) (PageModel PHome.Model) (MapMsg PHome.Msg rootMsg)
-  | PS_Post (Page PPost.Model PPost.Msg) (PageModel PPost.Model) (MapMsg PPost.Msg rootMsg)
+--------------------------------------------------
 
 
-type PageMsg
-  = PM_Home PHome.Msg
-  | PM_Post PPost.Msg
+type alias PageModel a =
+  { a
+  | ready : Bool
+  , layoutClass : LayoutClass
+  , seoTitle : String
+  , seoDescription : String
+  }
 
 
-pageStateEquivalent : PageState rootMsg -> PageState rootMsg -> Bool
-pageStateEquivalent a b =
-  case (a, b) of
-    (PS_Home _ _ _, PS_Home _ _ _) ->
-      True
-
-    (PS_Post _ _ _, PS_Post _ _ _) ->
-      True
-
-    _ ->
-      False
+isPageModelReady : PageModel a -> Bool
+isPageModelReady {ready} =
+  ready
 
 
-pageStateEq : PageState rootMsg -> PageState rootMsg -> Bool
-pageStateEq a b =
-  case (a, b) of
-    (PS_Home p s _, PS_Home p_ s_ _) ->
-      p == p_ && s == s_
-
-    (PS_Post p s _, PS_Post p_ s_ _) ->
-      p == p_ && s == s_
-
-    _ ->
-      False
+pageLayoutClassString : PageModel a -> String
+pageLayoutClassString {layoutClass} =
+  layoutClassToString layoutClass
 
 
-initPageState : Route -> (PageMsg -> rootMsg) -> (PageState rootMsg, Cmd rootMsg)
-initPageState route toRootMsg =
-  let
-    page =
-      routeToPage route
-
-    genericInit : (msg -> PageMsg) -> (Page model msg -> model -> MapMsg msg rootMsg) -> (PageState rootMsg, Cmd rootMsg)
-    genericInit toPageMsg toPageState =
-      let
-        mapMsg =
-          toRootMsg << toPageMsg
-
-        (model, cmd) =
-          page.init
-      in
-        ( toPageState page model mapMsg
-        , Cmd.map mapMsg cmd
-        )
-  in
-    case route of
-      R_Home ->
-        genericInit PM_Home PS_Home
-
-      R_Post _ ->
-        genericInit PM_Post PS_Post
+--------------------------------------------------
 
 
-updatePageState : PageMsg -> PageState rootMsg -> (PageState rootMsg, Cmd rootMsg)
-updatePageState msg state =
-  case msg of
-    PM_Home pageMsg ->
-      case state of
-        PS_Home page pageModel mapMsg ->
-          let
-            (pageModel_, pageCmd) =
-              page.update pageMsg pageModel
-          in
-            ( PS_Home page pageModel_ mapMsg
-            , Cmd.map mapMsg pageCmd
-            )
-
-        _ ->
-          (state, Cmd.none)
-
-    PM_Post pageMsg ->
-      case state of
-        PS_Post page pageModel mapMsg ->
-          let
-            (pageModel_, pageCmd) =
-              page.update pageMsg pageModel
-          in
-            ( PS_Post page pageModel_ mapMsg
-            , Cmd.map mapMsg pageCmd
-            )
-
-        _ ->
-          (state, Cmd.none)
+type alias PageMsg msg globalMsg =
+  Either msg globalMsg
 
 
-viewPageState : PageState rootMsg -> Html rootMsg
-viewPageState state =
-  case state of
-    PS_Home page model mapMsg ->
-      page.view model
-        |> Html.map mapMsg
-
-    PS_Post page model mapMsg ->
-      page.view model
-        |> Html.map mapMsg
+--------------------------------------------------
 
 
-subscriptionsPageState : PageState rootMsg -> Sub rootMsg
-subscriptionsPageState state =
-  case state of
-    PS_Home page model mapMsg ->
-      page.subscriptions model
-        |> Sub.map mapMsg
-
-    PS_Post page model mapMsg ->
-      page.subscriptions model
-        |> Sub.map mapMsg
+type alias Init model msg globalMsg =
+  (PageModel model, Cmd (PageMsg msg globalMsg))
 
 
-replacePageStateMapMsg : (PageMsg -> rootMsg1) -> PageState rootMsg0 -> PageState rootMsg1
-changePageStateMapMsg f state =
-  case state of
-    PS_Home p m _ ->
-      PS_Home p m (f << PM_Home)
-
-    PS_Post p m _ ->
-      PS_Post p m (f << PM_Post)
+type alias Update model msg globalMsg =
+  msg -> PageModel model -> (PageModel model, Cmd (PageMsg msg globalMsg))
 
 
---TODO
---Might get type ambiguity error here
-getPageStateModel : PageState rootMsg -> PageModel model
-getPageStateModel state =
-  PS_Home _ m _ -> m
-  PS_Post_ m _ -> m
+type alias View model msg globalMsg =
+  PageModel model -> H.Html (PageMsg msg globalMsg) 
 
 
-isPageStateReady : PageState rootMsg -> Bool
-isPageStateReady =
-  isPageModelReady << getPageStateModel
+type alias Subscriptions model msg globalMsg =
+  PageModel model -> Sub (PageMsg msg globalMsg) 
 
 
-getPageStateLayoutClassString : PageState rootMsg -> Bool
-getPageStateLayoutClassString =
-  pageLayoutClassString << getPageStateModel
+type alias Page model msg globalMsg =
+  { init : Init model msg globalMsg
+  , update : Update model msg globalMsg
+  , view : View model msg globalMsg
+  , subscriptions : Subscriptions model msg globalMsg
+  }
+
+
+type alias MapMsg childMsg parentMsg globalMsg =
+  PageMsg childMsg globalMsg -> parentMsg
 
 
 --------------------------------------------------

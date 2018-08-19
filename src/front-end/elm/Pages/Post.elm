@@ -1,14 +1,16 @@
 --------------------------------------------------
 
 
-module Pages.Post (Model, Msg, page) where
+module Pages.Post exposing (Model, Msg, page)
 
 
 --------------------------------------------------
 
 
-import Types as T
 import Html as H
+
+import Types as T
+import View as V
 
 
 --------------------------------------------------
@@ -28,7 +30,7 @@ type Msg
 --------------------------------------------------
 
 
-page : String -> T.Page Model Msg
+page : String -> T.Page Model Msg T.GlobalMsg
 page postId =
   { init = init postId
   , update = update
@@ -40,7 +42,7 @@ page postId =
 --------------------------------------------------
 
 
-init : String -> T.Init Model Msg
+init : String -> T.Init Model Msg T.GlobalMsg
 init postId =
   ( { postId = postId
     , ready = True
@@ -55,7 +57,7 @@ init postId =
 --------------------------------------------------
 
 
-update : T.Update Model Msg
+update : T.Update Model Msg T.GlobalMsg
 update msg model =
   (model, Cmd.none)
 
@@ -63,16 +65,20 @@ update msg model =
 --------------------------------------------------
 
 
-view : T.View Model Msg
+view : T.View Model Msg T.GlobalMsg
 view _ =
-  H.text "Post view"
+  H.div
+    []
+    [ H.text "Post view"
+    , V.link T.R_Home [] [ H.text "Go home" ]
+    ]
 
 
 --------------------------------------------------
 
 
-subscriptions : T.Subscriptions Model Msg
-subscriptions =
+subscriptions : T.Subscriptions Model Msg T.GlobalMsg
+subscriptions _ =
   Sub.none
 
 

@@ -1,6 +1,6 @@
 module.exports = [
   "build",
-  "ejs:devIndex",
+  "ejs:dev",
   "elm:dev",
   "inline:all",
   "watch"

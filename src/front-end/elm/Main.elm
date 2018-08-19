@@ -1,7 +1,7 @@
 --------------------------------------------------
 
 
-module Main (main) where
+module Main exposing (main)
 
 
 --------------------------------------------------
@@ -10,16 +10,20 @@ module Main (main) where
 import Html as H
 import Html.Attributes as HA
 import Navigation as N
+
 import Types as T
+import Util as U
+import Pages.Home as PHome
+import Pages.Post as PPost
 
 
 --------------------------------------------------
 
 
-main : Program Never T.RootModel T.RootMsg
+main : Program Never RootModel RootMsg
 main =
   N.program
-    (T.RM_StartTransition << T.locationToRoute)
+    (RM_StartTransition << T.locationToRoute)
     { init = init
     , update = update
     , view = view
@@ -30,18 +34,21 @@ main =
 --------------------------------------------------
 
 
-init : N.Location -> T.RootModel
+init : N.Location -> (RootModel, Cmd RootMsg)
 init location =
   let
     route =
       T.locationToRoute location
     
     (page, cmd) =
-      T.initPageState route T.RM_UpdateIncomingPage
+      initPageState route RM_UpdateIncomingPage RM_Global
+
+    pageIsReady =
+      isPageStateReady page
   in
-    ( { initialized = False
-      , activePage = Nothing
-      , incomingPage = Just page
+    ( { initialized = pageIsReady
+      , activePage = if pageIsReady then Just page else Nothing
+      , incomingPage = if pageIsReady then Nothing else Just page
       }
     , cmd
     )
@@ -50,31 +57,30 @@ init location =
 --------------------------------------------------
 
 
-update : T.RootMsg -> T.RootModel -> (T.RootModel, Cmd T.RootMsg)
+update : RootMsg -> RootModel -> (RootModel, Cmd RootMsg)
 update msg model =
   case msg of
-    T.RM_StartTransition route ->
+    RM_StartTransition route ->
       let
         (page, cmd_) =
-          T.initPageState route T.RM_UpdateIncomingPage
+          initPageState route RM_UpdateIncomingPage RM_Global
 
         cmd =
-          if pageIsReady page then
+          if isPageStateReady page then
             Cmd.batch
               [ cmd_
-              , U.toCmd T.RM_CompleteTransition
+              , U.toCmd RM_CompleteTransition
               ]
           else
             cmd_
       in
         ( { model
-          | initialized = initialized
-          , incomingPage = Just page
+          | incomingPage = Just page
           }
         , cmd
         )
         
-    T.RM_CompleteTransition ->
+    RM_CompleteTransition ->
       case model.incomingPage of
         Nothing ->
           (model, Cmd.none)
@@ -82,28 +88,33 @@ update msg model =
         (Just page) ->
           ( { model
             | initialized = True
-            , activePage = Just (T.replacePageStateMapMsg T.RM_UpdateActivePage page)
+            , activePage = Just (replacePageStateMapMsg RM_UpdateActivePage RM_Global page)
             , incomingPage = Nothing
             }
           , Cmd.none
           )
 
-    T.RM_UpdateActivePage pageMsg ->
+    RM_UpdateActivePage pageMsg ->
       updatePage
         pageMsg
         .activePage
         (\p m -> { m | activePage = p })
         model
 
-    T.RM_UpdateIncomingPage pageMsg ->
+    RM_UpdateIncomingPage pageMsg ->
       updatePage
         pageMsg
         .incomingPage
         (\p m -> { m | incomingPage = p })
         model
 
+    RM_Global globalMsg ->
+      case globalMsg of
+        T.GM_Navigate route ->
+          ( model, N.newUrl (T.routeToString route) )
 
-updatePage : T.PageMsg -> (T.RootModel -> Maybe (T.PageState T.RootMsg)) -> (Maybe (T.PageState T.RootMsg) -> T.RootModel -> T.RootModel) -> T.RootModel -> (T.RootModel, Cmd T.RootMsg)
+
+updatePage : PageStateMsg -> (RootModel -> Maybe PageState) -> (Maybe PageState -> RootModel -> RootModel) -> RootModel -> (RootModel, Cmd RootMsg)
 updatePage pageMsg getPageState setPageState model =
   let
     pageState =
@@ -111,35 +122,40 @@ updatePage pageMsg getPageState setPageState model =
 
     (pageState_, cmd_) =
       pageState
-        |> Maybe.map (T.updatePageState pageMsg) 
+        |> Maybe.map (updatePageState pageMsg) 
         |> Maybe.map (Tuple.mapFirst Just)
         |> Maybe.withDefault (pageState, Cmd.none)
+
+    pageIsReady =
+      pageState_
+        |> Maybe.map isPageStateReady
+        |> Maybe.withDefault False
 
     cmd =
       Cmd.batch
         [ cmd_
-        , if T.isPageStateReady pageState && isLoading model then
-            U.toCmd T.RM_CompleteTransition
+        , if pageIsReady && isLoading model then
+            U.toCmd RM_CompleteTransition
           else
             Cmd.none
         ]
   in
-    ( setPageState pageModel_ model
+    ( setPageState pageState_ model
     , cmd
     )
 
 
-isInitialized : Model -> Bool
-isTransitioning {initialized} =
+isInitialized : RootModel -> Bool
+isInitialized {initialized} =
   initialized
 
 
-isTransitioning : Model -> Bool
+isTransitioning : RootModel -> Bool
 isTransitioning {incomingPage} =
   U.isJust incomingPage
 
 
-isLoading : Model -> Bool
+isLoading : RootModel -> Bool
 isLoading model =
   not (isInitialized model) || isTransitioning model
 
@@ -147,16 +163,28 @@ isLoading model =
 --------------------------------------------------
 
 
-view : T.RootModel -> H.Html T.RootMsg
+view : RootModel -> H.Html RootMsg
 view model =
-  H.main
-    [ HA.className <| T.getPageStateLayoutClassString model.activePage ]
-    [ if isLoading model then H.text "Loading" else H.text "Loaded"
-    , T.viewPageState model.activePage
-    ]
+  let
+    layoutClassString =
+      model.activePage
+        |> Maybe.map getPageStateLayoutClassString
+        |> Maybe.withDefault (T.layoutClassToString T.LC_Normal)
+
+    activePageView =
+      model.activePage
+        |> Maybe.map viewPageState
+        |> Maybe.withDefault (H.div [ HA.class "empty" ] [])
+  in
+    H.main_
+      [ HA.class layoutClassString ]
+      [ if isLoading model then H.text "Loading" else H.text "Loaded"
+      , H.br [] []
+      , activePageView
+      ]
 
 
-viewHeader : H.Html T.RootMsg
+viewHeader : H.Html RootMsg
 viewHeader =
   H.div [] []
 
@@ -164,16 +192,189 @@ viewHeader =
 --------------------------------------------------
 
 
-subscriptions : T.RootModel -> Sub T.RootMsg
+subscriptions : RootModel -> Sub RootMsg
 subscriptions {activePage, incomingPage} =
   let
     getPageSubs =
-      Maybe.withDefault Sub.none << Maybe.map T.subscriptionsPageState
+      Maybe.withDefault Sub.none << Maybe.map subscriptionsPageState
   in
     Sub.batch
       [ getPageSubs activePage
       , getPageSubs incomingPage
       ]
+
+
+--------------------------------------------------
+
+
+type alias RootModel =
+  { initialized : Bool
+  , activePage : Maybe PageState
+  , incomingPage : Maybe PageState
+  }
+
+
+type RootMsg
+  = RM_StartTransition T.Route
+  | RM_CompleteTransition
+  | RM_UpdateActivePage PageStateMsg
+  | RM_UpdateIncomingPage PageStateMsg
+  | RM_Global T.GlobalMsg
+
+
+--------------------------------------------------
+
+
+type PageState
+  = PS_Home (T.Page PHome.Model PHome.Msg T.GlobalMsg) (T.PageModel PHome.Model) (T.MapMsg PHome.Msg RootMsg T.GlobalMsg)
+  | PS_Post (T.Page PPost.Model PPost.Msg T.GlobalMsg) (T.PageModel PPost.Model) (T.MapMsg PPost.Msg RootMsg T.GlobalMsg)
+
+
+type PageStateMsg
+  = PM_Home PHome.Msg
+  | PM_Post PPost.Msg
+
+
+pageStateEquivalent : PageState -> PageState -> Bool
+pageStateEquivalent a b =
+  case (a, b) of
+    (PS_Home _ _ _, PS_Home _ _ _) ->
+      True
+
+    (PS_Post _ _ _, PS_Post _ _ _) ->
+      True
+
+    _ ->
+      False
+
+
+pageStateEq : PageState -> PageState -> Bool
+pageStateEq a b =
+  case (a, b) of
+    (PS_Home p s _, PS_Home p_ s_ _) ->
+      p == p_ && s == s_
+
+    (PS_Post p s _, PS_Post p_ s_ _) ->
+      p == p_ && s == s_
+
+    _ ->
+      False
+
+
+initPageState : T.Route -> (PageStateMsg -> RootMsg) -> (T.GlobalMsg -> RootMsg) -> (PageState, Cmd RootMsg)
+initPageState route pageStateToRootMsg globalToRootMsg =
+  let
+    genericInit : (T.Page model msg T.GlobalMsg) -> (msg -> PageStateMsg) -> (T.Page model msg T.GlobalMsg -> (T.PageModel model) -> T.MapMsg msg RootMsg T.GlobalMsg -> PageState) -> (PageState, Cmd RootMsg)
+    genericInit page toPageStateMsg toPageState =
+      let
+        mapMsg =
+          createMapMsg toPageStateMsg pageStateToRootMsg globalToRootMsg
+
+        (model, cmd) =
+          page.init
+      in
+        ( toPageState page model mapMsg 
+        , Cmd.map mapMsg cmd
+        )
+  in
+    case route of
+      T.R_Home ->
+        genericInit (PHome.page) PM_Home PS_Home
+
+      T.R_Post id ->
+        genericInit (PPost.page id) PM_Post PS_Post
+
+
+updatePageState : PageStateMsg -> PageState -> (PageState, Cmd RootMsg)
+updatePageState msg state =
+  case msg of
+    PM_Home pageMsg ->
+      case state of
+        PS_Home page pageModel mapMsg ->
+          let
+            (pageModel_, pageCmd) =
+              page.update pageMsg pageModel
+          in
+            ( PS_Home page pageModel_ mapMsg
+            , Cmd.map mapMsg pageCmd
+            )
+
+        _ ->
+          (state, Cmd.none)
+
+    PM_Post pageMsg ->
+      case state of
+        PS_Post page pageModel mapMsg ->
+          let
+            (pageModel_, pageCmd) =
+              page.update pageMsg pageModel
+          in
+            ( PS_Post page pageModel_ mapMsg
+            , Cmd.map mapMsg pageCmd
+            )
+
+        _ ->
+          (state, Cmd.none)
+
+
+viewPageState : PageState -> H.Html RootMsg
+viewPageState state =
+  case state of
+    PS_Home page model mapMsg ->
+      page.view model
+        |> H.map mapMsg
+
+    PS_Post page model mapMsg ->
+      page.view model
+        |> H.map mapMsg
+
+
+subscriptionsPageState : PageState -> Sub RootMsg
+subscriptionsPageState state =
+  case state of
+    PS_Home page model mapMsg ->
+      page.subscriptions model
+        |> Sub.map mapMsg
+
+    PS_Post page model mapMsg ->
+      page.subscriptions model
+        |> Sub.map mapMsg
+
+
+createMapMsg : (msg -> PageStateMsg) -> (PageStateMsg -> RootMsg) -> (T.GlobalMsg -> RootMsg) -> T.PageMsg msg T.GlobalMsg -> RootMsg
+createMapMsg toPageStateMsg pageStateToRootMsg globalToRootMsg msg =
+  case msg of
+    T.Left pageMsg -> 
+      pageMsg
+        |> toPageStateMsg
+        |> pageStateToRootMsg
+
+    T.Right globalMsg ->
+      globalToRootMsg globalMsg
+
+
+replacePageStateMapMsg : (PageStateMsg -> RootMsg) -> (T.GlobalMsg -> RootMsg) -> PageState -> PageState
+replacePageStateMapMsg pageStateToRootMsg globalToRootMsg state =
+  case state of
+    PS_Home p m _ ->
+      PS_Home p m (createMapMsg PM_Home pageStateToRootMsg globalToRootMsg)
+
+    PS_Post p m _ ->
+      PS_Post p m (createMapMsg PM_Post pageStateToRootMsg globalToRootMsg)
+
+
+isPageStateReady : PageState -> Bool
+isPageStateReady state =
+  case state of
+    PS_Home _ m _ -> T.isPageModelReady m
+    PS_Post _ m _ -> T.isPageModelReady m
+
+
+getPageStateLayoutClassString : PageState -> String
+getPageStateLayoutClassString state =
+  case state of
+    PS_Home _ m _ -> T.pageLayoutClassString m
+    PS_Post _ m _ -> T.pageLayoutClassString m
 
 
 --------------------------------------------------
