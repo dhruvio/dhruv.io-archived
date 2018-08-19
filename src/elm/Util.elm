@@ -1,0 +1,19 @@
+--------------------------------------------------
+
+module Util (..) where
+
+--------------------------------------------------
+
+toCmd : msg -> Cmd msg
+toCmd =
+  Task.perform identity << Task.succeed
+
+--------------------------------------------------
+
+
+isJust : Maybe Never -> Bool
+isJust =
+  Maybe.withDefault False << Maybe.map (always True)
+
+
+--------------------------------------------------

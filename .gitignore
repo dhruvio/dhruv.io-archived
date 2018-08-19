@@ -1,0 +1,9 @@
+*.swp
+*.tmp
+*.pem
+.gem/
+elm-stuff/
+node_modules/
+build/
+.sass-cache/
+tmp/
