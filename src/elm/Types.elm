@@ -256,7 +256,7 @@ subscriptionsPageState state =
         |> Sub.map mapMsg
 
 
-replacePageStateMapMsg : (PageMsg -> rootMsg) -> PageState Never -> PageState rootMsg
+replacePageStateMapMsg : (PageMsg -> rootMsg1) -> PageState rootMsg0 -> PageState rootMsg1
 changePageStateMapMsg f state =
   case state of
     PS_Home p m _ ->

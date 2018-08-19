@@ -26,8 +26,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="370.01302"
-     inkscape:cy="579.4151"
+     inkscape:cx="369.98591"
+     inkscape:cy="551.20119"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -116,7 +116,7 @@
          y="141.05428"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;line-height:0px;font-family:'Source Serif Pro';-inkscape-font-specification:'Source Serif Pro';fill:#282828;fill-opacity:1;stroke-width:0.26458332px;"
          id="tspan4524-7-3">Available to hire on a contract basis. Reach me at <tspan
-   style="fill:#458588;fill-opacity:1"
+   style="fill:#076678;fill-opacity:1"
    id="tspan4781">hi@dhruv.io</tspan>.</tspan></text>
     <text
        xml:space="preserve"
@@ -128,17 +128,17 @@
          id="tspan4672"
          x="16.120937"
          y="174.36066"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;font-family:'Source Serif Pro';-inkscape-font-specification:'Source Serif Pro';fill:#458588;fill-opacity:1;stroke-width:0.26458332px">SEO for Single-Page Applications</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.3499999px;font-family:'Source Serif Pro';-inkscape-font-specification:'Source Serif Pro';fill:#458588;fill-opacity:1;stroke-width:0.26458332px">SEO for Single-Page Applications using Elm and Node.js</tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:'fira mono';-inkscape-font-specification:'fira mono';letter-spacing:0px;word-spacing:0px;fill:#a89984;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:'fira mono';-inkscape-font-specification:'fira mono';letter-spacing:0px;word-spacing:0px;fill:#a89984;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="16.237354"
-       y="183.73114"
+       y="189.02281"
        id="text4975"><tspan
          sodipodi:role="line"
          x="16.237354"
-         y="183.73114"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:'Source Serif Pro';-inkscape-font-specification:'Source Serif Pro';fill:#a89984;fill-opacity:1;stroke-width:0.26458332px;"
+         y="189.02281"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.52777767px;font-family:'Source Serif Pro';-inkscape-font-specification:'Source Serif Pro';fill:#a89984;fill-opacity:1;stroke-width:0.26458332px"
          id="tspan4977">More posts coming soon.</tspan></text>
   </g>
 </svg>
