@@ -17,6 +17,13 @@
       <script src="/highlight.js"></script>
       <script src="/app.js"></script>
     <% } %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108267052-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    </script>
   </head>
   <body dir="ltr" lang="en">
     <script>
@@ -61,12 +68,11 @@
           addMeta("name", "description", data.description);
           addMeta("name", "twitter:description", data.description);
           addMeta("property", "og:description", data.description);
-          //image
-          //addMeta("name", "twitter:image", data.image);
-          //addMeta("property", "og:image", data.image);
           //url
           addMeta("name", "twitter:url", window.location.href);
           addMeta("property", "og:url", window.location.href);
+          //google analytics page view
+          gtag('config', '<%= googleAnalyticsTrackingId %>');
         });
 
         function addMeta(nameAttr, nameValue, contentValue) {

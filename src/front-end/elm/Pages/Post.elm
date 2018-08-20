@@ -22,6 +22,7 @@ import View as V
 type alias Metadata =
     { title : String
     , description : String
+    , author : String
     , datePublished : String
     }
 
@@ -94,6 +95,7 @@ decodeMetadata =
     JDP.decode Metadata
         |> JDP.required "title" JD.string
         |> JDP.required "description" JD.string
+        |> JDP.required "author" JD.string
         |> JDP.required "datePublished" JD.string
 
 
@@ -123,7 +125,7 @@ update msg model =
                     ( { model
                         | metadata = Just metadata
                         , ready = U.isJust model.body
-                        , seoTitle = metadata.title
+                        , seoTitle = metadata.title ++ " by " ++ metadata.author
                         , seoDescription = metadata.description
                       }
                     , Cmd.none
