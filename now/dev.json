@@ -7,5 +7,11 @@
   "alias": [
     "dhruvio-dev.now.sh",
     "dev.dhruv.io"
-  ]
+  ],
+  "scale": {
+    "sfo1": {
+      "min": 1,
+      "max": 1
+    }
+  }
 }
