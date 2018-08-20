@@ -11,11 +11,23 @@
 
   .post-body {
     
-    p,
+    p {
+      margin-bottom: $sPaddingXs;
+    }
+
     ul,
     ol,
+    pre,
+    img,
     table {
-      margin-bottom: $sPaddingXs;
+      margin: $sPaddingSm 0;
+    }
+
+    pre {
+      border-radius: 4px;
+      padding: 10px;
+      font-size: $sFontBody;
+      @extend .hljs;
     }
   }
 }

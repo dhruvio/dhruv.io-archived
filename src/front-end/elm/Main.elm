@@ -104,6 +104,7 @@ update msg model =
                         [ P.windowScrollYTo 0
                         , P.setPageMetaData (getPageMetaData page)
 
+                        --, P.highlightCodeBlocks ()
                         --, P.pageView ()
                         ]
                     )

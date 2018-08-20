@@ -11,8 +11,10 @@
       <link href="/app.css" rel="stylesheet" type="text/css" />
     <% } %>
     <% if (inlineJs) { %>
+      <script src="highlight.js?__inline=true"></script>
       <script src="app.js?__inline=true"></script>
     <% } else { %>
+      <script src="/highlight.js"></script>
       <script src="/app.js"></script>
     <% } %>
   </head>
@@ -24,7 +26,6 @@
         var node = document.body;
         var app = Elm.Main.embed(node);
 
-
         app.ports.pageView.subscribe(function() {
           window.ga('send', {
             hitType: 'pageview',
@@ -35,6 +36,16 @@
         //command to scroll window along Y axis to fixed value
         app.ports.windowScrollYTo.subscribe(function (y) {
           window.scrollTo(0, y);
+        });
+
+        //command to highlight all code blocks on the page
+        app.ports.highlightCodeBlocks.subscribe(function() {
+          window.setTimeout(function() {
+            const blocks = document.querySelectorAll("pre");
+            for (var i = 0; i < blocks.length; i++) {
+              window.hljs.highlightBlock(blocks[i]);
+            }
+          }, 50);
         });
 
         //command to set page metadata

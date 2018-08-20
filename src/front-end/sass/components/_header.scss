@@ -13,8 +13,10 @@ header {
     }
   }
 
-  @include media(xs, sm) {
-    p {
+  p {
+    font-size: $sFontSubText;
+
+    @include media(xs, sm) {
       display: inline;
 
       &:not(:last-of-type) {
