@@ -1,4 +1,6 @@
-const index = gruntConfig.out.html.index;
+const html = gruntConfig.out.html;
+const index = `${html}/index.html`;
+const notFound = `${html}/404.html`;
 
 module.exports = {
   prod: {
@@ -13,7 +15,8 @@ module.exports = {
       keepClosingSlash: true
     },
     files: {
-      [index]: index
+      [index]: index,
+      [notFound]: notFound
     }
   }
 };

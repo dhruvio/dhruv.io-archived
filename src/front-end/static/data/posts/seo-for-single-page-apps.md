@@ -90,4 +90,4 @@ What is most striking to me is that SPAs are not widely used for content-heavy w
 
 **If you enjoyed this post, and would like to work together, you can reach me at [hi@dhruv.io](mailto:hi@dhruv.io).**
 
-*Huge thanks to [Kevin Yank](http://kevinyank.com/) for motivating me to write this during our chat on the [Elm Town podcast](https://elmtown.audio/).*
+*Huge thanks to [Kevin Yank](http://kevinyank.com/) for motivating me to write this post during our chat on the [Elm Town podcast](https://elmtown.audio/).*

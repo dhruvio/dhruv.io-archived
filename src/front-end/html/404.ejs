@@ -3,15 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <title>Not Found | Dhruv Dang</title>
+    <title>Not Found</title>
     <% if (inlineCss) { %>
       <link href="app.css?__inline=true" rel="stylesheet" type="text/css" />
     <% } else { %>
       <link href="/app.css" rel="stylesheet" type="text/css" />
     <% } %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108267052-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '<%= googleAnalyticsTrackingId %>');
+    </script>
   </head>
   <body dir="ltr" lang="en">
-    404
+    <main class="loaded">
+      Not Found
+      <br>
+      <a href="/">
+        Go Home
+      </a> 
+    </main>
   </body>
 </html>
 
