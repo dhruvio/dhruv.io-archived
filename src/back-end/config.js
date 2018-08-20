@@ -9,5 +9,5 @@ module.exports = {
   uiDir: process.env.X_UI_DIR || "./build",
   uiAppFile: process.env.X_UI_APP_FILE || "./build/index.html",
   ui404File: process.env.X_UI_404_FILE || "./build/404.html",
-  chromeBin: process.env.CHROME_BIN || "chromium"
+  chromeBin: env === "production" ? undefined : process.env.CHROME_BIN || "chromium"
 };
