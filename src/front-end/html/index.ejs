@@ -11,12 +11,11 @@
       <link href="/app.css" rel="stylesheet" type="text/css" />
     <% } %>
     <% if (inlineJs) { %>
-      <script src="highlight.js?__inline=true"></script>
       <script src="app.js?__inline=true"></script>
     <% } else { %>
-      <script src="/highlight.js"></script>
       <script src="/app.js"></script>
     <% } %>
+    <script src="/highlight.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108267052-1"></script>
     <script>
@@ -32,13 +31,6 @@
         //embed elm application
         var node = document.body;
         var app = Elm.Main.embed(node);
-
-        app.ports.pageView.subscribe(function() {
-          window.ga('send', {
-            hitType: 'pageview',
-            page: window.location.pathname
-          });
-        });
 
         //command to scroll window along Y axis to fixed value
         app.ports.windowScrollYTo.subscribe(function (y) {

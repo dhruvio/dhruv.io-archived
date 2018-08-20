@@ -68,14 +68,14 @@ This leaves us with a SPA that populates SEO-specific `<meta>` tags, deployed wi
 First, let's assume the role of a regular user:
 
 ```bash
-curl 'https://dhruv.io'
+curl 'https://www.dhruv.io'
 #Responds with a minimal HTML page without any SEO-specific <meta> tags.
 ```
 
 Next, let's request the same page, but with the user agent of a crawler:
 
 ```bash
-curl -H 'User-Agent: Twitterbot' 'https://dhruv.io'
+curl -H 'User-Agent: Twitterbot' 'https://www.dhruv.io'
 #Responds with a full, server-rendered HTML page containing SEO-specific <meta> tags.
 ```
 

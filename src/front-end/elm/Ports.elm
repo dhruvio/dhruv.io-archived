@@ -16,9 +16,6 @@ type alias PageMetaData =
 ----------------------------------------
 
 
-port pageView : () -> Cmd msg
-
-
 port windowScrollYTo : Float -> Cmd msg
 
 
