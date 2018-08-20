@@ -52,7 +52,7 @@ The server that makes all of this possible might seem complicated, but, in reali
   +------------+  +------------+
 ```
 
-Its logic forks in determining whether a request is coming from a user or a crawler.
+Its logic forks when determining whether a request is coming from a user or a crawler.
 
 When a requestor is a regular user, we want to serve the SPA normally. What this usually means is to respond with a minimal HTML file that includes a JavaScript bundle and CSS. Once the browser loads the JavaScript, it populates the DOM on the client-side with markup, then sets the relevant, SEO-specific `<meta>` tags on the page. To an end-user, this appears to function like an ordinary website, however, to a crawler, the website seems empty, as the HTML sent by the server has no meaningful content without a browser to render it.
 
