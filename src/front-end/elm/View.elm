@@ -18,18 +18,25 @@ import Types as T
 --------------------------------------------------
 
 
-link : T.Route -> List (H.Attribute (T.PageMsg msg T.GlobalMsg)) -> List (H.Html (T.PageMsg msg T.GlobalMsg)) -> H.Html (T.PageMsg msg T.GlobalMsg)
-link route attributes children =
+link : msg -> List (H.Attribute msg) -> List (H.Html msg) -> H.Html msg 
+link msg attributes children =
   H.a
     ((++)
       attributes
-      [ HA.href (T.routeToString route)
-      , HE.onWithOptions
+      [ HE.onWithOptions
           "click"
           { defaultOptions | preventDefault = True }
-          (JD.succeed <| T.Right <| T.GM_Navigate route)
+          (JD.succeed msg)
       ]
     )
+    children
+
+
+pageLink : T.Route -> List (H.Attribute (T.PageMsg msg T.GlobalMsg)) -> List (H.Html (T.PageMsg msg T.GlobalMsg)) -> H.Html (T.PageMsg msg T.GlobalMsg)
+pageLink route attributes children =
+  link
+    (T.Right <| T.GM_Navigate route)
+    [ HA.href (T.routeToString route) ]
     children
 
 

@@ -8,6 +8,7 @@ module Pages.Home exposing (Model, Msg, page)
 
 
 import Html as H
+import Html.Attributes as HA
 
 import Types as T
 import View as V
@@ -47,8 +48,8 @@ init =
   ( { home = "Home"
     , ready = True
     , layoutClass = T.LC_Normal
-    , seoTitle = "Home title"
-    , seoDescription = "Home description"
+    , seoTitle = "Dhruv Dang"
+    , seoDescription = "Full stack software engineer, specializing in user interfaces and search. Available to hire on a contract basis."
     }
   , Cmd.none
   )
@@ -68,9 +69,20 @@ update msg model =
 view : T.View Model Msg T.GlobalMsg
 view _ =
   H.div
-    []
-    [ H.text "Home view"
-    , V.link (T.R_Post "123") [] [ H.text "Go to post" ]
+    [ HA.class "page-home" ]
+    [ viewPosts
+    , H.div [] [ H.text "More posts coming soon." ]
+    ]
+
+
+viewPosts : H.Html (T.PageMsg Msg T.GlobalMsg)
+viewPosts =
+  H.ul
+    [ HA.class "posts" ]
+    [ H.li []
+        [ V.pageLink (T.R_Post "seo-for-single-page-applications") []
+            [ H.text "SEO for Single-Page-Applications using Elm and Node.js" ]
+        ]
     ]
 
 

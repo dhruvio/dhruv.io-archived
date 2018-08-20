@@ -13,6 +13,7 @@ import Navigation as N
 
 import Types as T
 import Util as U
+import View as V
 import Pages.Home as PHome
 import Pages.Post as PPost
 
@@ -170,23 +171,49 @@ view model =
       model.activePage
         |> Maybe.map getPageStateLayoutClassString
         |> Maybe.withDefault (T.layoutClassToString T.LC_Normal)
-
-    activePageView =
-      model.activePage
-        |> Maybe.map viewPageState
-        |> Maybe.withDefault (H.div [ HA.class "empty" ] [])
   in
     H.main_
-      [ HA.class layoutClassString ]
-      [ if isLoading model then H.text "Loading" else H.text "Loaded"
-      , H.br [] []
-      , activePageView
+      [ HA.class layoutClassString
+      , HA.class <| if isLoading model then "loading" else "loaded"
+      ]
+      [ viewHeader
+      , viewPage model.activePage
+      , viewScreen
       ]
 
 
 viewHeader : H.Html RootMsg
 viewHeader =
-  H.div [] []
+  H.header
+    []
+    [ H.h1 []
+        [ V.link
+            (RM_Global <| T.GM_Navigate T.R_Home)
+            [ HA.href "/" ]
+            [ H.text "Dhruv Dang." ]
+        ]
+    , H.p [] [ H.text "Full stack software engineer, specializing in user interfaces and search." ]
+    , H.p [] [ H.text "Previously at Apple, Deutsche Bank, Change.org, and Symphony." ]
+    , H.p []
+        [ H.text "Available to hire on a contract basis. Reach me at "
+        , H.a
+            [ HA.href "mailto:hi@dhruv.io" ]
+            [ H.text "hi@dhruv.io" ]
+        , H.text "."
+        ]
+    ]
+
+
+viewPage : Maybe PageState -> H.Html RootMsg
+viewPage page =
+  page
+    |> Maybe.map viewPageState
+    |> Maybe.withDefault (H.div [ HA.class "empty" ] [])
+
+
+viewScreen : H.Html RootMsg
+viewScreen =
+  H.div [ HA.id "screen" ] []
 
 
 --------------------------------------------------
