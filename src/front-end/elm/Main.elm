@@ -50,7 +50,10 @@ init location =
       , activePage = Nothing
       , incomingPage = Just page
       }
-    , if pageIsReady then U.toCmd RM_CompleteTransition else Cmd.none
+    , Cmd.batch
+        [ if pageIsReady then U.toCmd RM_CompleteTransition else Cmd.none
+        , cmd
+        ]
     )
 
 
