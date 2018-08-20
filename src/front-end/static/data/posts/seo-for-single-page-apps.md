@@ -41,10 +41,10 @@ The server that makes all of this possible might seem complicated, but, in reali
       +-++           +--+--+
         |               |
         v               v
-    Serve SPA      Render Page
-    Normally       Headlessly
-    +---+---+      with Chromium
-        |          +----+------+
+    Serve SPA     Render Page
+    Normally      Headlessly
+    +---+---+     with Chromium
+        |         +-----+-----+
         |               |
         v               v
   HTML Response.  HTML Response.
