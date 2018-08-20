@@ -8,5 +8,6 @@ module.exports = {
   port: process.env.X_PORT || 3000,
   uiDir: process.env.X_UI_DIR || "./build",
   uiAppFile: process.env.X_UI_APP_FILE || "./build/index.html",
-  ui404File: process.env.X_UI_404_FILE || "./build/404.html"
+  ui404File: process.env.X_UI_404_FILE || "./build/404.html",
+  chromeBin: process.env.CHROME_BIN || "chromium"
 };
