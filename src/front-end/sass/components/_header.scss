@@ -1,0 +1,36 @@
+header {
+  border-bottom: 1px solid $cBorder;
+  padding-left: $sPaddingXs;
+  padding-right: $sPaddingXs;
+  padding-bottom: $sPaddingSm;
+  margin-bottom: $sPaddingSm;
+
+  h1 {
+    font-size: $sFontLogo;
+
+    a {
+      @include link($color: $cFontNormal);
+    }
+  }
+
+  @include media(xs, sm) {
+    p {
+      display: inline;
+
+      &:not(:last-of-type) {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  .layout-normal & {
+
+    h1 a {
+      @include link($color: $cFontLight);
+    }
+    
+    p {
+      color: $cFontLight;
+    }
+  }
+}

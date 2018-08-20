@@ -3,13 +3,10 @@
 
 module Pages.Home exposing (Model, Msg, page)
 
-
 --------------------------------------------------
-
 
 import Html as H
 import Html.Attributes as HA
-
 import Types as T
 import View as V
 
@@ -18,14 +15,16 @@ import View as V
 
 
 type alias Model =
-  { home : String }
+    { home : String }
+
 
 
 --------------------------------------------------
 
 
 type Msg
-  = None
+    = None
+
 
 
 --------------------------------------------------
@@ -33,11 +32,12 @@ type Msg
 
 page : T.Page Model Msg T.GlobalMsg
 page =
-  { init = init
-  , update = update
-  , view = view
-  , subscriptions = subscriptions
-  }
+    { init = init
+    , update = update
+    , view = view
+    , subscriptions = subscriptions
+    }
+
 
 
 --------------------------------------------------
@@ -45,14 +45,15 @@ page =
 
 init : T.Init Model Msg T.GlobalMsg
 init =
-  ( { home = "Home"
-    , ready = True
-    , layoutClass = T.LC_Normal
-    , seoTitle = "Dhruv Dang"
-    , seoDescription = "Full stack software engineer, specializing in user interfaces and search. Available to hire on a contract basis."
-    }
-  , Cmd.none
-  )
+    ( { home = "Home"
+      , ready = True
+      , layoutClass = T.LC_VerticallyCentered
+      , seoTitle = "Dhruv Dang"
+      , seoDescription = "Full stack software engineer, specializing in user interfaces and search. Available to hire on a contract basis."
+      }
+    , Cmd.none
+    )
+
 
 
 --------------------------------------------------
@@ -60,7 +61,8 @@ init =
 
 update : T.Update Model Msg T.GlobalMsg
 update msg model =
-  (model, Cmd.none)
+    ( model, Cmd.none )
+
 
 
 --------------------------------------------------
@@ -68,22 +70,24 @@ update msg model =
 
 view : T.View Model Msg T.GlobalMsg
 view _ =
-  H.div
-    [ HA.class "page-home" ]
-    [ viewPosts
-    , H.div [] [ H.text "More posts coming soon." ]
-    ]
+    H.div
+        [ HA.class "page page-home" ]
+        [ viewPosts
+        , H.div [] [ H.text "More posts coming soon." ]
+        ]
 
 
 viewPosts : H.Html (T.PageMsg Msg T.GlobalMsg)
 viewPosts =
-  H.ul
-    [ HA.class "posts" ]
-    [ H.li []
-        [ V.pageLink (T.R_Post "seo-for-single-page-applications") []
-            [ H.text "SEO for Single-Page-Applications using Elm and Node.js" ]
+    H.ul
+        [ HA.class "posts" ]
+        [ H.li []
+            [ V.pageLink (T.R_Post "seo-for-single-page-apps")
+                []
+                [ H.text "SEO for Single-Page-Apps using Elm and Node.js" ]
+            ]
         ]
-    ]
+
 
 
 --------------------------------------------------
@@ -91,7 +95,8 @@ viewPosts =
 
 subscriptions : T.Subscriptions Model Msg T.GlobalMsg
 subscriptions _ =
-  Sub.none
+    Sub.none
+
 
 
 --------------------------------------------------

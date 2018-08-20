@@ -3,9 +3,7 @@
 
 module Util exposing (..)
 
-
 --------------------------------------------------
-
 
 import Task
 
@@ -15,7 +13,8 @@ import Task
 
 toCmd : msg -> Cmd msg
 toCmd =
-  Task.perform identity << Task.succeed
+    Task.perform identity << Task.succeed
+
 
 
 --------------------------------------------------
@@ -23,7 +22,8 @@ toCmd =
 
 isJust : Maybe a -> Bool
 isJust =
-  Maybe.withDefault False << Maybe.map (always True)
+    Maybe.withDefault False << Maybe.map (always True)
+
 
 
 --------------------------------------------------

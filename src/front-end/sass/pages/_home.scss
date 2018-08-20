@@ -1,0 +1,18 @@
+.page-home{
+
+  .posts {
+    font-size: $sFontH3;
+
+    li {
+      margin-bottom: $sPaddingLg / 2;
+
+      @include media(xs, sm) {
+        margin-bottom: $sPaddingMd / 2;
+      }
+    }
+  }
+
+  & > div {
+    color: $cFontLight;
+  }
+}

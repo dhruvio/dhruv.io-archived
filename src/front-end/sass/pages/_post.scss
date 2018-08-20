@@ -1,0 +1,21 @@
+.page-post {
+
+  .post-metadata {
+    padding-bottom: $sPaddingSm;
+
+    .post-date {
+      color: $cFontLight;
+      font-size: $sFontSubText;
+    }
+  }
+
+  .post-body {
+    
+    p,
+    ul,
+    ol,
+    table {
+      margin-bottom: $sPaddingXs;
+    }
+  }
+}

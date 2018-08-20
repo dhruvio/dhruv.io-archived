@@ -1,0 +1,49 @@
+$cBg: #fbf1c7;
+$cFontNormal: #282828;
+$cFontLight: #928374;
+$cLink: #458588;
+$cLinkHover: #076678;
+$cBorder: #d5c4a1;
+
+$sFontLogo: 26px;
+$sFontBody: 18px;
+$sFontSubText: 14px;
+$sFontH1: 40px;
+$sFontH2: 32px;
+$sFontH3: 26px;
+$sFontH4: 22px;
+$sFontH5: 22px;
+$sFontH6: 22px;
+$sPaddingXs: 20px;
+$sPaddingSm: 40px;
+$sPaddingMd: 60px;
+$sPaddingLg: 80px;
+$sMediaSm: 400px;
+$sMediaMd: 960px;
+$sMediaLg: 1200px;
+
+@mixin media($sizes...) {
+  @if index($sizes, xs) != null {
+    @media only screen and (max-width: $sMediaSm) { @content; }
+  }
+  @if index($sizes, sm) != null {
+    @media only screen and (min-width: $sMediaSm) and (max-width: $sMediaMd) { @content; }
+  }
+  @if index($sizes, md) != null {
+    @media only screen and (min-width: $sMediaMd) and (max-width: $sMediaLg) { @content; }
+  }
+  @if index($sizes, lg) != null {
+    @media only screen and (min-width: $sMediaLg) { @content; }
+  }
+}
+
+@mixin link($color: $cLink) {
+  color: $color;
+  text-decoration: none;
+
+  &:hover {
+    $colorHover: darken($color, 10%);
+    color: $colorHover;
+    text-decoration: underline solid $colorHover;
+  }
+}

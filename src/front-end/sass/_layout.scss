@@ -1,0 +1,109 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+span {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.5;
+}
+
+h1 {
+  font-size: $sFontH1;
+  margin-bottom: $sFontH1 / 2;
+}
+
+h2 {
+  font-size: $sFontH2;
+  margin-bottom: $sFontH2 / 2;
+}
+
+h3 {
+  font-size: $sFontH3;
+  margin-bottom: $sFontH3 / 2;
+}
+
+h4 {
+  font-size: $sFontH4;
+  margin-bottom: $sFontH4 / 2;
+}
+
+h5 {
+  font-size: $sFontH5;
+  margin-bottom: $sFontH5 / 2;
+}
+
+h6 {
+  font-size: $sFontH6;
+  margin-bottom: $sFontH6 / 2;
+}
+
+p {
+  line-height: 2;
+}
+
+a {
+  @include link;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-color: $cBg;
+  color: $cFontNormal;
+  font-family: "Bitter", "DejaVu Serif", serif;
+  padding: $sPaddingLg;
+  min-height: 100vh;
+
+  @include media(xs, sm) {
+    padding-left: $sPaddingSm;
+    padding-right: $sPaddingSm;
+  }
+}
+
+main {
+  width: 100%;
+  max-width: 900px;
+
+  &.layout-normal {
+    align-self: flex-start
+  }
+
+  &.layout-vertically-centered {
+    align-self: center;
+  }
+
+  & > * {
+    width: 100%;
+  }
+
+  & > .page {
+    padding-left: $sPaddingXs;
+    padding-right: $sPaddingXs;
+  }
+}
