@@ -46,19 +46,11 @@ init location =
         pageIsReady =
             isPageStateReady page
     in
-    ( { initialized = pageIsReady
-      , activePage =
-            if pageIsReady then
-                Just page
-            else
-                Nothing
-      , incomingPage =
-            if pageIsReady then
-                Nothing
-            else
-                Just page
+    ( { initialized = False
+      , activePage = Nothing
+      , incomingPage = Just page
       }
-    , cmd
+    , if pageIsReady then U.toCmd RM_CompleteTransition else Cmd.none
     )
 
 
