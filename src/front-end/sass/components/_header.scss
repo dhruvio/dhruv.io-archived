@@ -5,6 +5,20 @@ header {
   padding-bottom: $sPaddingSm;
   margin-bottom: $sPaddingSm;
 
+  @include media(xs, sm) {
+
+    &.header-compact {
+
+      h1 {
+        margin-bottom: 0;
+      }
+
+      p {
+        display: none;
+      }
+    }
+  }
+
   h1 {
     font-size: $sFontLogo;
 

@@ -48,6 +48,7 @@ init =
     ( { home = "Home"
       , ready = True
       , layoutClass = T.LC_VerticallyCentered
+      , headerClass = T.HC_Full
       , seoTitle = "Dhruv Dang"
       , seoDescription = "Full stack software engineer, specializing in user interfaces and search. Available to hire on a contract basis."
       }

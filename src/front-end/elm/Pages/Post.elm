@@ -64,6 +64,7 @@ init id =
       , metadata = Nothing
       , ready = False
       , layoutClass = T.LC_Normal
+      , headerClass = T.HC_Compact
       , seoTitle = "Post title"
       , seoDescription = "Post description"
       }

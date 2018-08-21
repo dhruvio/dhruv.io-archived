@@ -124,7 +124,7 @@ update msg model =
                     ( model, N.newUrl (T.routeToString route) )
 
 
-updatePage : PageStateMsg -> (RootModel -> Maybe PageState) -> (Maybe PageState -> RootModel -> RootModel) -> RootModel -> ( RootModel, Cmd RootMsg )
+updatePage : PageStateMsg -> (RootModel -> Maybe PageState) -> (Maybe PageState -> RootModel -> RootModel) -> RootModel -> (RootModel, Cmd RootMsg)
 updatePage pageMsg getPageState setPageState model =
     let
         pageState =
@@ -181,6 +181,11 @@ view model =
             model.activePage
                 |> Maybe.map getPageStateLayoutClassString
                 |> Maybe.withDefault (T.layoutClassToString T.LC_Normal)
+
+        headerClassString =
+            model.activePage
+                |> Maybe.map getPageStateHeaderClassString
+                |> Maybe.withDefault (T.headerClassToString T.HC_Full)
     in
     H.main_
         [ HA.class layoutClassString
@@ -190,16 +195,16 @@ view model =
             else
                 "loaded"
         ]
-        [ viewHeader
+        [ viewHeader headerClassString
         , viewPage model.activePage
         , viewScreen
         ]
 
 
-viewHeader : H.Html RootMsg
-viewHeader =
+viewHeader : String -> H.Html RootMsg
+viewHeader class =
     H.header
-        []
+        [ HA.class class ]
         [ H.h1 []
             [ V.link
                 (RM_Global <| T.GM_Navigate T.R_Home)
@@ -425,6 +430,16 @@ getPageStateLayoutClassString state =
 
         PS_Post _ m _ ->
             T.pageLayoutClassString m
+
+
+getPageStateHeaderClassString : PageState -> String
+getPageStateHeaderClassString state =
+    case state of
+        PS_Home _ m _ ->
+            T.pageHeaderClassString m
+
+        PS_Post _ m _ ->
+            T.pageHeaderClassString m
 
 
 getPageMetaData : PageState -> P.PageMetaData

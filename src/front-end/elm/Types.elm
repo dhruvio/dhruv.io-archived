@@ -84,6 +84,7 @@ type alias PageModel a =
     { a
         | ready : Bool
         , layoutClass : LayoutClass
+        , headerClass : HeaderClass
         , seoTitle : String
         , seoDescription : String
     }
@@ -97,6 +98,11 @@ isPageModelReady { ready } =
 pageLayoutClassString : PageModel a -> String
 pageLayoutClassString { layoutClass } =
     layoutClassToString layoutClass
+
+
+pageHeaderClassString : PageModel a -> String
+pageHeaderClassString { headerClass } =
+    headerClassToString headerClass
 
 
 
@@ -157,6 +163,24 @@ layoutClassToString lc =
         LC_VerticallyCentered ->
             "layout-vertically-centered"
 
+
+
+--------------------------------------------------
+
+
+type HeaderClass
+    = HC_Full
+    | HC_Compact
+
+
+headerClassToString : HeaderClass -> String
+headerClassToString lc =
+    case lc of
+        HC_Full ->
+            "header-full"
+
+        HC_Compact ->
+            "header-compact"
 
 
 --------------------------------------------------
