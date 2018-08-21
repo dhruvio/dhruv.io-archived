@@ -37,16 +37,6 @@
           window.scrollTo(0, y);
         });
 
-        //command to highlight all code blocks on the page
-        app.ports.highlightCodeBlocks.subscribe(function() {
-          window.setTimeout(function() {
-            const blocks = document.querySelectorAll("pre");
-            for (var i = 0; i < blocks.length; i++) {
-              window.hljs.highlightBlock(blocks[i]);
-            }
-          }, 50);
-        });
-
         //command to set page metadata
         app.ports.setPageMetaData.subscribe(function (data) {
           removeAllMeta();

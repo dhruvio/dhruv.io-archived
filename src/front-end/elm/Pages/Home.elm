@@ -84,7 +84,7 @@ viewPosts =
         [ H.li []
             [ V.pageLink (T.R_Post "seo-for-single-page-apps")
                 []
-                [ H.text "SEO for Single-Page-Apps" ]
+                [ H.text "SEO for Single-Page-Apps with Headless Chromium" ]
             ]
         ]
 

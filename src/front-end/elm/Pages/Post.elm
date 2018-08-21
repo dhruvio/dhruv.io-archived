@@ -10,10 +10,9 @@ import Html.Attributes as HA
 import Http as Ht
 import Json.Decode as JD
 import Json.Decode.Pipeline as JDP
-import Markdown as Ma
+import Markdown as Ma exposing (defaultOptions)
 import Types as T
 import Util as U
-import View as V
 
 
 --------------------------------------------------
@@ -109,9 +108,13 @@ update msg model =
         LoadBody result ->
             case result of
                 Ok body ->
+                    let
+                        postIsReady =
+                            U.isJust model.metadata
+                    in
                     ( { model
                         | body = Just body
-                        , ready = U.isJust model.metadata
+                        , ready = postIsReady
                       }
                     , Cmd.none
                     )
@@ -122,9 +125,13 @@ update msg model =
         LoadMetadata result ->
             case result of
                 Ok metadata ->
+                    let
+                        postIsReady =
+                            U.isJust model.body
+                    in
                     ( { model
                         | metadata = Just metadata
-                        , ready = U.isJust model.body
+                        , ready = postIsReady
                         , seoTitle = metadata.title ++ " by " ++ metadata.author
                         , seoDescription = metadata.description
                       }
@@ -176,7 +183,8 @@ viewMetadata metadata =
 
 viewBody : String -> H.Html (T.PageMsg Msg T.GlobalMsg)
 viewBody body =
-    Ma.toHtml
+    Ma.toHtmlWith
+        { defaultOptions | defaultHighlighting = Just "text" }
         [ HA.class "post-body" ]
         body
 
