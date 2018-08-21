@@ -19,9 +19,6 @@ type alias PageMetaData =
 port windowScrollYTo : Float -> Cmd msg
 
 
-port highlightCodeBlocks : () -> Cmd msg
-
-
 port setPageMetaData : PageMetaData -> Cmd msg
 
 
