@@ -10,7 +10,7 @@ import Html.Attributes as HA
 import Http as Ht
 import Json.Decode as JD
 import Json.Decode.Pipeline as JDP
-import Markdown as Ma exposing (defaultOptions)
+import Markdown as Ma
 import Types as T
 import Util as U
 
@@ -23,6 +23,7 @@ type alias Metadata =
     , description : String
     , author : String
     , datePublished : String
+    , footer : String
     }
 
 
@@ -97,6 +98,7 @@ decodeMetadata =
         |> JDP.required "description" JD.string
         |> JDP.required "author" JD.string
         |> JDP.required "datePublished" JD.string
+        |> JDP.required "footer" JD.string
 
 
 
@@ -160,6 +162,7 @@ view { body, metadata } =
                 [ HA.class "page page-post" ]
                 [ viewMetadata metadata_
                 , viewBody body_
+                , viewFooter metadata_.footer
                 ]
 
         viewLoading =
@@ -184,10 +187,16 @@ viewMetadata metadata =
 
 viewBody : String -> H.Html (T.PageMsg Msg T.GlobalMsg)
 viewBody body =
-    Ma.toHtmlWith
-        { defaultOptions | defaultHighlighting = Just "text" }
+    Ma.toHtml
         [ HA.class "post-body" ]
         body
+
+
+viewFooter : String -> H.Html (T.PageMsg Msg T.GlobalMsg)
+viewFooter footer =
+    Ma.toHtml
+        [ HA.class "post-footer" ]
+        footer
 
 
 

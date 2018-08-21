@@ -1,5 +1,4 @@
 header {
-  border-bottom: 1px solid $cBorder;
   padding-left: $sPaddingXs;
   padding-right: $sPaddingXs;
   padding-bottom: $sPaddingSm;
@@ -48,5 +47,9 @@ header {
     p {
       color: $cFontLight;
     }
+  }
+
+  .layout-vertically-centered & {
+    border-bottom: 1px solid $cBorder;
   }
 }

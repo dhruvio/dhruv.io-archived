@@ -87,7 +87,3 @@ You can pipe the results of these commands through `grep '<meta'` to get an idea
 I discovered this solution before Chromium had a headless mode, and [PhantomJS](https://github.com/ariya/phantomjs/issues/15344) was still around. I like that it's easy to deploy and scale up, and that there's room for caching to serve responses faster. For example, we could implement logic to cache server-rendered pages in memory as long as they can be invalidated when required.
 
 What is most striking to me is that SPAs are not widely used for content-heavy websites (most are managed by Content Management Systems or are statically generated). I believe crawlers' lack of support for them is a key factor in this outcome. While search and social media giants move in the direction of scraping SPAs effectively, I am using the solution outlined here to enable me to deploy content-driven web applications with strong SEO.
-
-**If you enjoyed this post, and would like to work together, you can reach me at [hi@dhruv.io](mailto:hi@dhruv.io).**
-
-*Huge thanks to [Kevin Yank](http://kevinyank.com/) for motivating me to write this post during our [Elm Town podcast episode](https://elmtown.audio/the-risk-of-elm-dhruv-dang).*
