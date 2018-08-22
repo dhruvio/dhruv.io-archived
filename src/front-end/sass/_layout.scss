@@ -81,7 +81,12 @@ body {
   padding: $sPaddingLg;
   min-height: 100vh;
 
-  @include media(xs, sm) {
+  @include media(xs) {
+    padding-left: $sPaddingXs;
+    padding-right: $sPaddingXs;
+  }
+
+  @include media(sm) {
     padding-left: $sPaddingSm;
     padding-right: $sPaddingSm;
   }
