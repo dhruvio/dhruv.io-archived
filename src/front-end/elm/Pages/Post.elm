@@ -65,7 +65,6 @@ init id =
       , metadata = Nothing
       , ready = False
       , layoutClass = T.LC_Normal
-      , headerClass = T.HC_Compact
       , seoTitle = "Post title"
       , seoDescription = "Post description"
       }
@@ -158,15 +157,17 @@ view : T.View Model Msg T.GlobalMsg
 view { body, metadata } =
     let
         viewLoaded body_ metadata_ =
-            H.article
-                [ HA.class "page page-post" ]
-                [ viewMetadata metadata_
-                , viewBody body_
-                , viewFooter metadata_.footer
+            H.section
+                [ HA.class "section-post" ]
+                [ H.article []
+                    [ viewMetadata metadata_
+                    , viewBody body_
+                    , viewFooter metadata_.footer
+                    ]
                 ]
 
         viewLoading =
-            H.article [] [ H.text "Loading" ]
+            H.section [ HA.class "section-loading" ] [ H.text "Loading" ]
     in
     Maybe.map2 viewLoaded body metadata
         |> Maybe.withDefault viewLoading

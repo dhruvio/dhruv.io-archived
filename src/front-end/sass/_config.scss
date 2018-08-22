@@ -1,23 +1,26 @@
 $cBg: #fbf1c7;
 $cFontNormal: #282828;
+$cFontMedium: #504945;
 $cFontLight: #928374;
 $cLink: #458588;
 $cLinkHover: #076678;
-$cBorder: #d5c4a1;
 
-$sFontLogo: 26px;
-$sFontBody: 18px;
-$sFontSubText: 16px;
-$sFontH1: 40px;
-$sFontH2: 32px;
-$sFontH3: 26px;
-$sFontH4: 22px;
-$sFontH5: 22px;
-$sFontH6: 22px;
-$sPaddingXs: 20px;
-$sPaddingSm: 40px;
-$sPaddingMd: 60px;
-$sPaddingLg: 80px;
+$sFontRootFull: 20px;
+$sFontRootCompact: 18px;
+$sFontBody: 1rem;
+$sFontSubText: 0.9rem;
+$sFontLogo: 1.3rem;
+$sFontH1: 2rem;
+$sFontH2: 1.6rem;
+$sFontH3: 1.3rem;
+$sFontH4: 1.1rem;
+$sFontH5: 1.1rem;
+$sFontH6: 1.1rem;
+$sPadding: 1rem;
+$sPaddingXs: $sPadding;
+$sPaddingSm: $sPadding * 2;
+$sPaddingMd: $sPadding * 3;
+$sPaddingLg: $sPadding * 4;
 $sMediaSm: 400px;
 $sMediaMd: 960px;
 $sMediaLg: 1200px;
@@ -46,4 +49,10 @@ $sMediaLg: 1200px;
     color: $colorHover;
     text-decoration: underline solid $colorHover;
   }
+}
+
+@mixin section-heading($margin-count) {
+  font-size: $sFontH3;
+  color: $cFontLight;
+  margin-bottom: $sPadding * $margin-count;
 }

@@ -2,6 +2,8 @@
 @import "./config.scss";
 @import "./highlight-gruvbox-dark.scss";
 @import "./layout.scss";
-@import "./components/header.scss";
-@import "./pages/home.scss";
-@import "./pages/post.scss";
+@import "./sections/header.scss";
+@import "./sections/pitch.scss";
+@import "./sections/posts.scss";
+@import "./sections/post.scss";
+@import "./components/responsive-lines.scss";

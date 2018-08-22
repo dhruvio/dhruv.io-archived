@@ -6,7 +6,11 @@ html,
 body {
   margin: 0;
   padding: 0;
-  font-size: $sFontBody;
+  font-size: $sFontRootFull;
+
+  @include media(xs, sm) {
+    font-size: $sFontRootCompact;
+  }
 }
 
 ul,
@@ -36,32 +40,26 @@ span {
 
 h1 {
   font-size: $sFontH1;
-  margin-bottom: $sFontH1 / 2;
 }
 
 h2 {
   font-size: $sFontH2;
-  margin-bottom: $sFontH2 / 2;
 }
 
 h3 {
   font-size: $sFontH3;
-  margin-bottom: $sFontH3 / 2;
 }
 
 h4 {
   font-size: $sFontH4;
-  margin-bottom: $sFontH4 / 2;
 }
 
 h5 {
   font-size: $sFontH5;
-  margin-bottom: $sFontH5 / 2;
 }
 
 h6 {
   font-size: $sFontH6;
-  margin-bottom: $sFontH6 / 2;
 }
 
 p {
@@ -81,12 +79,7 @@ body {
   padding: $sPaddingLg;
   min-height: 100vh;
 
-  @include media(xs) {
-    padding-left: $sPaddingXs;
-    padding-right: $sPaddingXs;
-  }
-
-  @include media(sm) {
+  @include media(xs, sm) {
     padding-left: $sPaddingSm;
     padding-right: $sPaddingSm;
   }
@@ -108,8 +101,7 @@ main {
     width: 100%;
   }
 
-  & > .page {
-    padding-left: $sPaddingXs;
-    padding-right: $sPaddingXs;
+  section[class^="section-"]:not(:last-of-type) {
+    margin-bottom: $sPadding * 3;
   }
 }

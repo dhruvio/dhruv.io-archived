@@ -181,11 +181,6 @@ view model =
             model.activePage
                 |> Maybe.map getPageStateLayoutClassString
                 |> Maybe.withDefault (T.layoutClassToString T.LC_Normal)
-
-        headerClassString =
-            model.activePage
-                |> Maybe.map getPageStateHeaderClassString
-                |> Maybe.withDefault (T.headerClassToString T.HC_Full)
     in
     H.main_
         [ HA.class layoutClassString
@@ -195,30 +190,22 @@ view model =
             else
                 "loaded"
         ]
-        [ viewHeader headerClassString
+        [ viewHeader
         , viewPage model.activePage
         , viewScreen
         ]
 
 
-viewHeader : String -> H.Html RootMsg
-viewHeader class =
-    H.header
-        [ HA.class class ]
-        [ H.h1 []
+viewHeader : H.Html RootMsg
+viewHeader =
+    H.section
+        [ HA.class "section-header" ]
+        [ H.h1
+            [ HA.class "section-heading" ]
             [ V.link
                 (RM_Global <| T.GM_Navigate T.R_Home)
                 [ HA.href "/" ]
                 [ H.text "Dhruv Dang." ]
-            ]
-        , H.p [] [ H.text "Full stack software engineer, specializing in user interfaces and search." ]
-        , H.p [] [ H.text "Previously at Apple, Deutsche Bank, Change.org, and Symphony." ]
-        , H.p []
-            [ H.text "Available to hire on a contract basis. Reach me at "
-            , H.a
-                [ HA.href "mailto:hi@dhruv.io" ]
-                [ H.text "hi@dhruv.io" ]
-            , H.text "."
             ]
         ]
 
@@ -226,8 +213,9 @@ viewHeader class =
 viewPage : Maybe PageState -> H.Html RootMsg
 viewPage page =
     page
-        |> Maybe.map viewPageState
-        |> Maybe.withDefault (H.div [ HA.class "empty" ] [])
+        |> Maybe.map (List.singleton << viewPageState)
+        |> Maybe.withDefault []
+        |> H.section [ HA.class "section-page" ]
 
 
 viewScreen : H.Html RootMsg
@@ -430,16 +418,6 @@ getPageStateLayoutClassString state =
 
         PS_Post _ m _ ->
             T.pageLayoutClassString m
-
-
-getPageStateHeaderClassString : PageState -> String
-getPageStateHeaderClassString state =
-    case state of
-        PS_Home _ m _ ->
-            T.pageHeaderClassString m
-
-        PS_Post _ m _ ->
-            T.pageHeaderClassString m
 
 
 getPageMetaData : PageState -> P.PageMetaData

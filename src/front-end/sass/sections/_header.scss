@@ -1,0 +1,10 @@
+section.section-header {
+
+  h1 {
+    @include section-heading(3);
+
+    a {
+      @include link($color: $cFontLight);
+    }
+  }
+}

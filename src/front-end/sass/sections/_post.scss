@@ -1,4 +1,4 @@
-.page-post {
+section.section-post {
 
   .post-metadata,
   .post-body {
@@ -6,6 +6,10 @@
   }
 
   .post-metadata {
+
+    .post-title {
+      margin-bottom: $sPaddingXs;
+    }
 
     .post-date {
       color: $cFontLight;
@@ -16,11 +20,13 @@
   .post-body,
   .post-footer {
 
+    h1,
+    h2,
     h3,
     h4,
     h5,
     h6 {
-      padding-top: $sPaddingXs;
+      padding: $sPaddingXs 0;
     }
     
     p {

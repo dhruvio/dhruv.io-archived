@@ -1,0 +1,13 @@
+p.responsive-lines {
+
+  @include media(xs, sm) {
+
+    br {
+      display: none
+    }
+
+    span:last-child:before {
+      content: " ";
+    }
+  }
+}

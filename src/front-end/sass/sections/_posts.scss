@@ -1,0 +1,18 @@
+section.section-posts {
+
+  h2 {
+    @include section-heading(2);
+  }
+
+  .posts {
+
+    li:not(:last-child) {
+      margin-bottom: $sPaddingSm;
+    }
+  }
+
+  & > div {
+    color: $cFontLight;
+    font-size: $sFontSubText;
+  }
+}

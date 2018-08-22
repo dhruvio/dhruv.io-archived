@@ -37,5 +37,17 @@ pageLink route attributes children =
         children
 
 
+responsiveLines : List (List (H.Html msg)) -> H.Html msg
+responsiveLines lines =
+    let
+        view line =
+           H.span [] line
+    in
+        H.p
+            [ HA.class "responsive-lines" ]
+            ( List.map view lines
+                  |> List.intersperse (H.br [] [])
+            )
+
 
 --------------------------------------------------
