@@ -2,7 +2,7 @@ Modern websites built with tools like Elm, React, Vue and Ember can offer a bett
 
 This post describes my strategy to solve this problem by demonstrating how any SPA can provide server-rendered HTML to crawlers. This is achieved by building a small server that vends a SPA employing `pushState` routing. The server parses the user agent of each request to determine if the requestor is a crawler. If so, the SPA is rendered on the server-side headlessly using Chromium. If not, it is simply served to the requestor normally, assuming they are a human user. The server has been architected to be stateless, allowing it to be scaled up horizontally to support popular websites.
 
-This blog is an example of this solution in production. The front-end was built in [Elm](http://elm-lang.org/) and the back-end server runs on [Node.js](https://nodejs.org/en/). It is deployed using [Now](https://zeit.co/now) and [Docker](https://www.docker.com/). The code is [open-source](https://github.com/dhruvio/dhruv.io). This post won't go into the details of how this project was implemented, and is not intended to be a tutorial. Rather, it provides an architectural overview of how this solution works.
+This blog is an example of this solution in production. The front-end was built in <a href="http://elm-lang.org/" target="_blank">Elm</a> and the back-end server runs on <a href="https://nodejs.org/en/" target="_blank">Node.js</a>. It is deployed using <a href="https://zeit.co/now" target="_blank">Now</a> and <a href="https://www.docker.com/" target="_blank">Docker</a>. The code is <a href="https://github.com/dhruvio/dhruv.io" target="_blank">open-source</a>. This post won't go into the details of how this project was implemented, and is not intended to be a tutorial. Rather, it provides an architectural overview of how this solution works.
 
 
 ### What does SEO look like in HTML?
@@ -20,7 +20,7 @@ Given SEO's scope is large, this post is only concerned with populating an HTML 
 <meta property="og:url" content="URL goes here.">
 ```
 
-SPAs may load data asynchronously on the client-side to create their user interfaces. Once this data is loaded, it's also possible to populate `<meta>` tags like these using JavaScript. This blog was written in Elm and achieves this using [Ports](http://elm-lang.org/docs/syntax#javascript-interop). You can see the relevant code [here](https://github.com/dhruvio/dhruv.io/blob/master/src/front-end/elm/Ports.elm) and [here](https://github.com/dhruvio/dhruv.io/blob/master/src/front-end/html/index.ejs).
+SPAs may load data asynchronously on the client-side to create their user interfaces. Once this data is loaded, it's also possible to populate `<meta>` tags like these using JavaScript. This blog was written in Elm and achieves this using <a href="http://elm-lang.org/docs/syntax#javascript-interop" target="_blank">Ports</a>. You can see the relevant code <a href="https://github.com/dhruvio/dhruv.io/blob/master/src/front-end/elm/Ports.elm" target="_blank">here</a> and <a href="https://github.com/dhruvio/dhruv.io/blob/master/src/front-end/html/index.ejs" target="_blank">here</a>.
 
 
 ### How does the server work?
@@ -58,7 +58,7 @@ When a requestor is a regular user, we want to serve the SPA normally. This mean
 
 Therefore, when the requestor is a crawler, we render the page on the server-side using Chromium headlessly to generate the necessary markup on the server-side. This enables our server to send a full HTML page with `<meta>` tags to the crawler so it can scrape the meaningful information that it needs.
 
-Take a look at [this blog's implementation](https://github.com/dhruvio/dhruv.io/blob/master/src/back-end/index.js) of this server in Node.js. The [module](https://github.com/dhruvio/dhruv.io/blob/master/src/back-end/util/render-url.js) that does the server-side rendering with Chromium uses the [puppeteer](https://www.npmjs.com/package/puppeteer) NPM package. This server does not rely on any state other than the SPA's build output, which can easily be generated from the source code. This feature is powerful, as it allows the server to be scaled up and down easily to meet performance requirements without the need of syncing state across the nodes of a deployment.
+Take a look at <a href="https://github.com/dhruvio/dhruv.io/blob/master/src/back-end/index.js" target="_blank">this blog's implementation</a> of this server in Node.js. The <a href="https://github.com/dhruvio/dhruv.io/blob/master/src/back-end/util/render-url.js" target="_blank">module</a> that does the server-side rendering with Chromium uses the <a href="https://www.npmjs.com/package/puppeteer" target="_blank">puppeteer</a> NPM package. This server does not rely on any state other than the SPA's build output, which can easily be generated from the source code. This feature is powerful, as it allows the server to be scaled up and down easily to meet performance requirements without the need of syncing state across the nodes of a deployment.
 
 
 ### Putting it all together.
@@ -84,6 +84,6 @@ You can pipe the results of these commands through `grep '<meta'` to get an idea
 
 ### Closing thoughts.
 
-I discovered this solution before Chromium had a headless mode, and [PhantomJS](https://github.com/ariya/phantomjs/issues/15344) was still around. I like that it's easy to deploy and scale up, and that there's room for caching to serve responses faster. For example, we could implement logic to cache server-rendered pages in memory as long as they can be invalidated when required.
+I discovered this solution before Chromium had a headless mode, and <a href="https://github.com/ariya/phantomjs/issues/15344" target="_blank">PhantomJS</a> was still around. I like that it's easy to deploy and scale up, and that there's room for caching to serve responses faster. For example, we could implement logic to cache server-rendered pages in memory as long as they can be invalidated when required.
 
 What is most striking to me is that SPAs are not widely used for content-heavy websites (most are managed by Content Management Systems or are statically generated). I believe crawlers' lack of support for them is a key factor in this outcome. While search and social media giants move in the direction of scraping SPAs effectively, I am using the solution outlined here to enable me to deploy content-driven web applications with strong SEO.

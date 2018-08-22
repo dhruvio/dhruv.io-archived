@@ -3,5 +3,5 @@
   "description": "Any Single-Page Application can have strong SEO. This post shows you how with an open source example.",
   "author": "Dhruv Dang",
   "datePublished": "2018.08.20",
-  "footer": "**If you enjoyed this post, and would like to work together, you can reach me at [hi@dhruv.io](mailto:hi@dhruv.io).**\n\n*Huge thanks to [Kevin Yank](http://kevinyank.com/) for motivating me to write this post during our [Elm Town podcast episode](https://elmtown.audio/the-risk-of-elm-dhruv-dang).*"
+  "footer": "**If you enjoyed this post, and would like to work together, you can reach me at <a href=\"mailto:hi@dhruv.io\">hi@dhruv.io</a>.**\n\n*Huge thanks to <a href=\"http://kevinyank.com/\" target=\"_blank\">Kevin Yank</a> for motivating me to write this post during our <a href=\"https://elmtown.audio/the-risk-of-elm-dhruv-dang\" target=\"_blank\">Elm Town podcast episode</a>.*"
 }
