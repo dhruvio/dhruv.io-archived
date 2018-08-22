@@ -37,6 +37,16 @@ pageLink route attributes children =
         children
 
 
+iconLink : String -> String -> H.Html msg
+iconLink name href =
+    H.a
+        [ HA.href href
+        , HA.target "_blank"
+        , HA.class "icon-link"
+        ]
+        [ H.img [ HA.src <| "/icons/" ++ name ++ ".svg" ] [] ]
+
+
 responsiveLines : List (List (H.Html msg)) -> H.Html msg
 responsiveLines lines =
     let

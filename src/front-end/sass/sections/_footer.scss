@@ -1,0 +1,9 @@
+section.section-footer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  a.icon-link:not(:last-child) {
+    margin-right: $sPaddingXs / 2;
+  }
+}

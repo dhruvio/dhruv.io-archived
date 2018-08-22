@@ -1,0 +1,11 @@
+a.icon-link {
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  img {
+    width: 1.1rem;
+  }
+}

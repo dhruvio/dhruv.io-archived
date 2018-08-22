@@ -49,7 +49,7 @@ init =
       , ready = True
       , layoutClass = T.LC_VerticallyCentered
       , seoTitle = "Dhruv Dang"
-      , seoDescription = "Full stack software engineer, specializing in user interfaces and search. Available to hire on a contract basis."
+      , seoDescription = "Full stack software engineer, focusing on user interfaces and search. Available to hire on a contract basis."
       }
     , Cmd.none
     )
@@ -84,7 +84,7 @@ viewPitch =
         [ H.h2 []
             [ V.responsiveLines
                 [ [ H.text "Full stack software engineer," ]
-                , [ H.text "specializing in user interfaces and search." ]
+                , [ H.text "focusing on user interfaces and search." ]
                 ]
             ]
         , V.responsiveLines

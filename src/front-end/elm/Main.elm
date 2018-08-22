@@ -192,7 +192,7 @@ view model =
         ]
         [ viewHeader
         , viewPage model.activePage
-        , viewScreen
+        , viewFooter
         ]
 
 
@@ -218,9 +218,14 @@ viewPage page =
         |> H.section [ HA.class "section-page" ]
 
 
-viewScreen : H.Html RootMsg
-viewScreen =
-    H.div [ HA.id "screen" ] []
+viewFooter : H.Html RootMsg
+viewFooter =
+    H.section
+      [ HA.class "section-footer" ]
+      [ V.iconLink "github" "https://github.com/dhruvio"
+      , V.iconLink "linkedin" "https://linkedin.com/in/dhruvio"
+      , V.iconLink "twitter" "https://twitter.com/dhruvdang"
+      ]
 
 
 
