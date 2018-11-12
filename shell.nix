@@ -5,7 +5,7 @@ with pkgs;
 stdenv.mkDerivation {
   name = "dhruv-io";
   buildInputs = [
-    nodejs-9_x
+    nodejs-8_x
     elmPackages.elm
   ];
   shellHook = ''
