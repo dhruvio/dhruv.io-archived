@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "name": "dhruvio",
+  "public": false,
+  "builds": [
+    {
+      "src": "src/back-end/index.js",
+      "use": "@now/node",
+      "config": {
+        "maxLambdaSize": "40mb",
+        "includeFiles": [
+          "**",
+          "../../dist/**"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "^.*$",
+      "dest": "src/back-end/index.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "alias": [
+    "www.dhruv.io"
+  ],
+  "github": {
+    "enabled": false,
+    "autoAlias": true,
+    "autoJobCancelation": true
+  }
+}

@@ -1,6 +1,6 @@
 //set up global constants for all grunt tasks
 const src = "src/front-end";
-const build = "build";
+const build = "dist";
 global.gruntConfig = {
   dir: {
     src,

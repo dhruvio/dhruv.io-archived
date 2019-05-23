@@ -1,7 +1,0 @@
-*.swp
-*.tmp
-*.pem
-.sass-cache/
-.gem/
-elm-stuff/
-tmp/

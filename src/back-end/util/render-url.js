@@ -1,14 +1,14 @@
 "use strict";
 
 const { chromeBin } = require("../config");
-const puppeteer = require("puppeteer");
+const chrome = require("chrome-aws-lambda");
+const puppeteer = require("puppeteer-core");
 
 module.exports = async url => {
   const browser = await puppeteer.launch({
-    executablePath: chromeBin,
-    args: [
-      "--no-sandbox"
-    ]
+    executablePath: chromeBin || await chrome.executablePath,
+    args: chrome.args,
+    headless: chrome.headless
   });
   const page = await browser.newPage();
   await page.goto(url, {

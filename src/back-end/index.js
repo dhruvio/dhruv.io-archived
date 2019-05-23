@@ -89,6 +89,4 @@ app.use((req, res, next) => {
   handleThunk(thunk, req, res, next);
 });
 
-//start the app
-log.info(`listening at ${config.host}:${config.port}`);
-app.listen(config.port, config.host);
+module.exports = app;

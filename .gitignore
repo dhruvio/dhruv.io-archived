@@ -4,6 +4,6 @@
 .gem/
 elm-stuff/
 node_modules/
-build/
+dist/
 .sass-cache/
 tmp/

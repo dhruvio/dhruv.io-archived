@@ -49,7 +49,7 @@ init =
       , ready = True
       , layoutClass = T.LC_VerticallyCentered
       , seoTitle = "Dhruv Dang"
-      , seoDescription = "Full stack software engineer, focusing on user interfaces and search. Available to hire on a contract basis."
+      , seoDescription = "Full-stack TypeScript & JavaScript Consultant."
       }
     , Cmd.none
     )
@@ -83,16 +83,15 @@ viewPitch =
         [ HA.class "section-pitch" ]
         [ H.h2 []
             [ V.responsiveLines
-                [ [ H.text "Full stack software engineer," ]
-                , [ H.text "focusing on user interfaces and search." ]
+                [ [ H.text "Full-stack TypeScript & JavaScript Consultant." ]
                 ]
             ]
         , V.responsiveLines
             [ [ H.text "Available to hire on a contract basis." ]
             , [ H.text "Reach me at "
               , H.a
-                  [ HA.href "mailto:hi@dhruv.io" ]
-                  [ H.text "hi@dhruv.io" ]
+                    [ HA.href "mailto:hi@dhruv.io" ]
+                    [ H.text "hi@dhruv.io" ]
               , H.text "."
               ]
             ]
@@ -105,13 +104,13 @@ viewPosts =
         [ HA.class "section-posts" ]
         [ H.h2 [ HA.class "section-heading" ] [ H.text "Posts." ]
         , H.ul
-              [ HA.class "posts" ]
-              [ H.li []
-                  [ V.pageLink (T.R_Post "seo-for-single-page-apps")
-                      []
-                      [ H.h3 [] [ H.text "SEO for Single-Page-Apps with Headless Chromium" ] ]
-                  ]
-              ]
+            [ HA.class "posts" ]
+            [ H.li []
+                [ V.pageLink (T.R_Post "seo-for-single-page-apps")
+                    []
+                    [ H.h3 [] [ H.text "SEO for Single-Page-Apps with Headless Chromium" ] ]
+                ]
+            ]
         ]
 
 
