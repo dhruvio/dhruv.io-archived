@@ -1,0 +1,7 @@
+{
+  "title": "Type-Safe Dependency Injection with TypeScript",
+  "description": "Reduce your unit testing overhead by learning how to pass your database connections to your server's route handlers with strong compile-time guarantees.",
+  "author": "Dhruv Dang",
+  "datePublished": "2019.05.26",
+  "footer": "**If you would like to work together on improving the reliability and flexibility of your TypeScript codebase, send me an email: <a href=\"mailto:hello@dhruv.io\">hello@dhruv.io</a>.**"
+}

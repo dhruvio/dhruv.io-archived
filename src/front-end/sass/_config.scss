@@ -25,6 +25,10 @@ $sMediaSm: 400px;
 $sMediaMd: 960px;
 $sMediaLg: 1200px;
 
+$fontFamilyHeadings: "Bitter", "DejaVu Serif", serif;
+$fontFamilyBody: "Open Sans", "Lato", sans-serif;
+$fontFamilyMono: "Menlo", "Fira Mono", sans-serif;
+
 @mixin media($sizes...) {
   @if index($sizes, xs) != null {
     @media only screen and (max-width: $sMediaSm) { @content; }

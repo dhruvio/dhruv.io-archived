@@ -38,6 +38,15 @@ span {
   line-height: 1.5;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $fontFamilyHeadings;
+}
+
 h1 {
   font-size: $sFontH1;
 }
@@ -70,12 +79,16 @@ a {
   @include link;
 }
 
+code {
+  font-family: $fontFamilyMono;
+}
+
 body {
   display: flex;
   justify-content: center;
   background-color: $cBg;
   color: $cFontNormal;
-  font-family: "Bitter", "DejaVu Serif", serif;
+  font-family: $fontFamilyBody;
   padding: $sPaddingLg;
   min-height: 100vh;
 

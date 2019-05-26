@@ -1,11 +1,8 @@
-FROM node:9-alpine
+FROM node:8-jessie
 
 MAINTAINER Dhruv Dang <hi@dhruv.io>
 
-RUN npm install -g now --unsafe-perm=true \
- && apk update \
- && apk add bash \
- && rm -rf /var/cache/apk/*
+RUN npm install -g now --unsafe-perm=true
 
 WORKDIR /data 
 VOLUME /data

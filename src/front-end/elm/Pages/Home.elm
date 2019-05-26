@@ -106,9 +106,14 @@ viewPosts =
         , H.ul
             [ HA.class "posts" ]
             [ H.li []
+                [ V.pageLink (T.R_Post "type-safe-dependency-injection-with-typescript")
+                    []
+                    [ H.text "Type-Safe Dependency Injection with TypeScript" ]
+                ]
+            , H.li []
                 [ V.pageLink (T.R_Post "seo-for-single-page-apps")
                     []
-                    [ H.h3 [] [ H.text "SEO for Single-Page-Apps with Headless Chromium" ] ]
+                    [ H.text "SEO for Single-Page-Apps with Headless Chromium" ]
                 ]
             ]
         ]
